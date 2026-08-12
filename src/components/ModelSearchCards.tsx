@@ -28,7 +28,7 @@ export function ModelSearchCards() {
         }}
       />
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 14 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 12 }}>
         {models.map((model) => (
           <Link
             key={model.slug}
@@ -37,22 +37,22 @@ export function ModelSearchCards() {
               textDecoration: "none",
               display: "grid",
               alignContent: "space-between",
-              aspectRatio: "1 / 1",
-              padding: 14,
+              aspectRatio: "4 / 5",
+              padding: 12,
               background: "#f5f5f5",
               border: "1px solid #d4d4d4",
               borderRadius: 10,
               color: "#111111",
             }}
           >
-            <div style={{ display: "grid", gap: 8 }}>
-              <span style={{ fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: "#666666" }}>
+            <div style={{ display: "grid", gap: 6 }}>
+              <span style={{ fontSize: 9, letterSpacing: "0.12em", textTransform: "uppercase", color: "#666666" }}>
                 {model.kind}
               </span>
               <h3 style={{ margin: 0, fontSize: 18, fontWeight: 600, lineHeight: 1.2 }}>{model.title}</h3>
             </div>
 
-            <p style={{ margin: 0, color: "#333333", lineHeight: 1.45, fontSize: 12 }}>{model.description}</p>
+            <p style={{ margin: 0, color: "#333333", lineHeight: 1.4, fontSize: 12 }}>{model.description}</p>
           </Link>
         ))}
       </div>

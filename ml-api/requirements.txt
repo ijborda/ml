@@ -3,3 +3,4 @@ uvicorn[standard]==0.30.6
 joblib==1.4.2
 numpy==2.1.1
 fastai==2.7.17
+fasttransform
