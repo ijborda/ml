@@ -31,8 +31,9 @@ export function ModelSearchCards() {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(180px, 220px))",
-          gap: 12,
+          gridTemplateColumns: "repeat(auto-fit, minmax(170px, 200px))",
+          columnGap: 10,
+          rowGap: 10,
           justifyContent: "start",
         }}
       >
@@ -46,7 +47,7 @@ export function ModelSearchCards() {
               alignContent: "space-between",
               width: "100%",
               aspectRatio: "4 / 5",
-              padding: 12,
+              padding: 10,
               background: "#f5f5f5",
               border: "1px solid #d4d4d4",
               borderRadius: 10,

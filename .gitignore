@@ -20,6 +20,10 @@
 # production
 /build
 
+# local training data
+/data/
+!/data/.gitkeep
+
 # misc
 .DS_Store
 *.pem
