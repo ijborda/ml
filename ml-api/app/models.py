@@ -1,10 +1,9 @@
 import importlib
 import os
-import pickle
 from pathlib import Path
 from typing import Any, Dict
 
-import joblib
+from fastai.learner import load_learner
 
 MODEL_ROOT = Path(os.getenv("MODEL_ROOT", "/app/models"))
 
@@ -14,11 +13,7 @@ def _load_model(model_name: str) -> Any:
     if not model_path.exists():
         raise FileNotFoundError(f"Model file not found: {model_path}")
 
-    try:
-        with model_path.open("rb") as handle:
-            return pickle.load(handle)
-    except (pickle.PickleError, EOFError, AttributeError, ImportError, IndexError, ValueError):
-        return joblib.load(model_path)
+    return load_learner(model_path)
 
 
 def get_model_registry() -> Dict[str, Any]:
