@@ -24,6 +24,6 @@ services:
     ports:
       - "8000:8000"
     environment:
-      MODEL_PATH: /app/models/marito_or_not.pkl
+      MODEL_ROOT: /app/models
     volumes:
       - ./ml-api/models:/app/models
