@@ -5,31 +5,19 @@ export default function Home() {
     <main
       style={{
         minHeight: "100vh",
-        background: "#020817",
-        color: "#e2e8f0",
+        background: "#ffffff",
+        color: "#111111",
         fontFamily: "Arial, sans-serif",
-        padding: "48px 24px",
+        padding: "40px 20px",
       }}
     >
-      <div style={{ maxWidth: "1100px", margin: "0 auto", display: "grid", gap: 28 }}>
-        <div style={{ display: "grid", gap: 14 }}>
-          <p
-            style={{
-              margin: 0,
-              color: "#38bdf8",
-              fontWeight: 700,
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-              fontSize: 12,
-            }}
-          >
-            Model Library
+      <div style={{ maxWidth: "980px", margin: "0 auto", display: "grid", gap: 24 }}>
+        <header style={{ display: "grid", gap: 8 }}>
+          <p style={{ margin: 0, fontSize: 12, letterSpacing: "0.12em", textTransform: "uppercase", color: "#666666" }}>
+            Models
           </p>
-          <h1 style={{ margin: 0, fontSize: "clamp(2.2rem, 3vw, 3.5rem)" }}>Explore ML models</h1>
-          <p style={{ margin: 0, maxWidth: 720, lineHeight: 1.7, color: "#cbd5e1" }}>
-            Search across project models, choose a card, and run the model UI for live predictions.
-          </p>
-        </div>
+          <h1 style={{ margin: 0, fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 700 }}>ML Library</h1>
+        </header>
 
         <ModelSearchCards />
       </div>

@@ -16,36 +16,23 @@ export default async function ModelPage({ params }: { params: Promise<{ slug: st
     <main
       style={{
         minHeight: "100vh",
-        background: "#020817",
-        color: "#e2e8f0",
-        padding: "48px 24px",
+        background: "#ffffff",
+        color: "#111111",
+        padding: "40px 20px",
         fontFamily: "Arial, sans-serif",
       }}
     >
-      <div style={{ maxWidth: "1100px", margin: "0 auto", display: "grid", gap: 24 }}>
-        <Link href="/" style={{ color: "#38bdf8", textDecoration: "none", fontWeight: 700 }}>
-          ← Back to projects
+      <div style={{ maxWidth: "980px", margin: "0 auto", display: "grid", gap: 20 }}>
+        <Link href="/" style={{ color: "#111111", textDecoration: "none", fontWeight: 700, display: "inline-block" }}>
+          ← Back
         </Link>
 
-        <header style={{ display: "grid", gap: 10 }}>
-          <span
-            style={{
-              width: "fit-content",
-              display: "inline-flex",
-              padding: "6px 10px",
-              borderRadius: 999,
-              background: `${model.accent}22`,
-              color: model.accent,
-              fontSize: 12,
-              fontWeight: 700,
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-            }}
-          >
+        <header style={{ display: "grid", gap: 8 }}>
+          <p style={{ margin: 0, fontSize: 12, letterSpacing: "0.12em", textTransform: "uppercase", color: "#666666" }}>
             {model.kind}
-          </span>
-          <h1 style={{ margin: 0, fontSize: "clamp(2rem, 3vw, 3rem)" }}>{model.title}</h1>
-          <p style={{ margin: 0, color: "#cbd5e1", maxWidth: 760, lineHeight: 1.7 }}>{model.description}</p>
+          </p>
+          <h1 style={{ margin: 0, fontSize: "clamp(2rem, 3vw, 2.6rem)" }}>{model.title}</h1>
+          <p style={{ margin: 0, color: "#333333", maxWidth: 760, lineHeight: 1.6 }}>{model.description}</p>
         </header>
 
         <ModelRunner model={model} />

@@ -17,7 +17,7 @@ export function filterModels(query: string) {
   }
 
   return modelCatalog.filter((model) => {
-    const haystack = `${model.title} ${model.description} ${model.tags.join(" ")}`.toLowerCase();
+    const haystack = `${model.title} ${model.description}`.toLowerCase();
     return haystack.includes(normalized);
   });
 }

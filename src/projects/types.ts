@@ -7,6 +7,4 @@ export type ModelDefinition = {
   kind: ModelKind;
   route: string;
   apiPath: string;
-  tags: string[];
-  accent: string;
 };

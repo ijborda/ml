@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Marito or Not",
-  description: "Next.js gateway for the Marito or Not ML API with IP-based rate limiting.",
+  title: "ML Projects",
+  description: "Some homemade ML projects for fun and learning.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

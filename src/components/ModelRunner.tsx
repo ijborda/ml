@@ -108,9 +108,9 @@ export function ModelRunner({ model }: { model: ModelDefinition }) {
   };
 
   return (
-    <div style={{ display: "grid", gap: 24, gridTemplateColumns: "1.1fr 0.9fr" }}>
-      <form onSubmit={handleSubmit} style={{ display: "grid", gap: 16, background: "#111827", borderRadius: 18, padding: 20 }}>
-        <label htmlFor="image-upload" style={{ color: "#cbd5e1", fontWeight: 600 }}>
+    <div style={{ display: "grid", gap: 20, gridTemplateColumns: "1.1fr 0.9fr" }}>
+      <form onSubmit={handleSubmit} style={{ display: "grid", gap: 16, background: "#f5f5f5", border: "1px solid #d4d4d4", borderRadius: 12, padding: 18 }}>
+        <label htmlFor="image-upload" style={{ color: "#111111", fontWeight: 600 }}>
           Upload image
         </label>
         <input
@@ -118,11 +118,11 @@ export function ModelRunner({ model }: { model: ModelDefinition }) {
           type="file"
           accept="image/*"
           onChange={(event) => setImage(event.target.files?.[0] ?? null)}
-          style={{ color: "#f8fafc" }}
+          style={{ color: "#111111" }}
         />
 
         {preview && (
-          <div style={{ overflow: "hidden", borderRadius: 18, background: "#0b1120" }}>
+          <div style={{ overflow: "hidden", borderRadius: 12, background: "#f0f0f0", border: "1px solid #d4d4d4" }}>
             <img src={preview} alt="Selected upload preview" style={{ width: "100%", maxHeight: 340, objectFit: "cover", display: "block" }} />
           </div>
         )}
@@ -131,10 +131,10 @@ export function ModelRunner({ model }: { model: ModelDefinition }) {
           type="submit"
           disabled={isSubmitting || !image}
           style={{
-            background: isSubmitting || !image ? "#475569" : model.accent,
-            color: "#020617",
+            background: isSubmitting || !image ? "#d4d4d4" : "#111111",
+            color: "#ffffff",
             border: "none",
-            borderRadius: 12,
+            borderRadius: 10,
             padding: "12px 18px",
             fontWeight: 700,
             cursor: isSubmitting || !image ? "not-allowed" : "pointer",
@@ -144,21 +144,21 @@ export function ModelRunner({ model }: { model: ModelDefinition }) {
         </button>
       </form>
 
-      <div style={{ background: "#0b1120", borderRadius: 18, padding: 20, display: "grid", gap: 16, alignContent: "start" }}>
+      <div style={{ background: "#f5f5f5", border: "1px solid #d4d4d4", borderRadius: 12, padding: 18, display: "grid", gap: 16, alignContent: "start" }}>
         <div>
-          <p style={{ margin: 0, color: "#94a3b8", textTransform: "uppercase", letterSpacing: "0.08em", fontSize: 12 }}>
-            Model output
+          <p style={{ margin: 0, color: "#666666", textTransform: "uppercase", letterSpacing: "0.08em", fontSize: 12 }}>
+            Result
           </p>
-          <h3 style={{ margin: "8px 0 0", fontSize: 30 }}>{predictionLabel}</h3>
+          <h3 style={{ margin: "8px 0 0", fontSize: 28, color: "#111111" }}>{predictionLabel}</h3>
         </div>
 
-        <div style={{ background: "#111827", borderRadius: 12, padding: 16 }}>
-          <p style={{ margin: 0, color: "#94a3b8" }}>Probability</p>
-          <p style={{ margin: "8px 0 0", fontSize: 20, color: "#f8fafc" }}>{probabilityText}</p>
+        <div style={{ background: "#ffffff", border: "1px solid #d4d4d4", borderRadius: 10, padding: 14 }}>
+          <p style={{ margin: 0, color: "#666666" }}>Probability</p>
+          <p style={{ margin: "8px 0 0", fontSize: 20, color: "#111111" }}>{probabilityText}</p>
         </div>
 
         {result?.error && (
-          <div style={{ background: "rgba(239, 68, 68, 0.12)", border: "1px solid rgba(239, 68, 68, 0.55)", color: "#fecaca", borderRadius: 12, padding: 12 }}>
+          <div style={{ background: "#fff5f5", border: "1px solid #d4d4d4", color: "#111111", borderRadius: 10, padding: 12 }}>
             {result.error}
           </div>
         )}
