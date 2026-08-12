@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: marito-next
+    container_name: ml-platform-web
     ports:
       - "3000:3000"
     environment:
@@ -20,7 +20,7 @@ services:
     build:
       context: ./ml-api
       dockerfile: Dockerfile
-    container_name: marito-ml-api
+    container_name: ml-platform-api
     ports:
       - "8000:8000"
     environment:
