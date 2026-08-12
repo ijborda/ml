@@ -1,0 +1,11 @@
+node_modules
+.npm
+.next
+.git
+.gitignore
+Dockerfile
+README.md
+ml-api/.venv
+ml-api/__pycache__
+ml-api/*.pyc
+ml-api/models/*.pkl

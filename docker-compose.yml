@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: marito-next
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      ML_API_URL: http://ml-api:8000
+      API_LIMIT_WINDOW_SECONDS: 60
+      API_LIMIT_MAX_REQUESTS: 10
+    depends_on:
+      - ml-api
+
+  ml-api:
+    build:
+      context: ./ml-api
+      dockerfile: Dockerfile
+    container_name: marito-ml-api
+    ports:
+      - "8000:8000"
+    environment:
+      MODEL_PATH: /app/models/marito_or_not.pkl
+    volumes:
+      - ./ml-api/models:/app/models
