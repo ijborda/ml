@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  train:
+    build:
+      context: ..
+      dockerfile: ml-train/Dockerfile
+    container_name: marito-or-not-train
+    volumes:
+      - ../data:/app/data
+      - ../ml-api/models:/app/ml-api/models

@@ -5,19 +5,10 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 To train the model in Docker:
 
 1. Put training images in `data/marito-or-not/marito` and `data/marito-or-not/not-marito`.
-2. Build the training image:
+2. Run the trainer compose file:
 
 ```bash
-docker build -f ml-train/Dockerfile -t marito-or-not-train .
-```
-
-3. Run training with the data and model directories mounted:
-
-```bash
-docker run --rm \
-	-v "$PWD/data:/app/data" \
-	-v "$PWD/ml-api/models:/app/ml-api/models" \
-	marito-or-not-train
+docker compose -f ml-train/docker-compose.yml up --build
 ```
 
 The model export is written to `ml-api/models/marito-or-not.pkl`.
