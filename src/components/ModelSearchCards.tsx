@@ -28,7 +28,14 @@ export function ModelSearchCards() {
         }}
       />
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 12 }}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(180px, 220px))",
+          gap: 12,
+          justifyContent: "start",
+        }}
+      >
         {models.map((model) => (
           <Link
             key={model.slug}
@@ -37,6 +44,7 @@ export function ModelSearchCards() {
               textDecoration: "none",
               display: "grid",
               alignContent: "space-between",
+              width: "100%",
               aspectRatio: "4 / 5",
               padding: 12,
               background: "#f5f5f5",
