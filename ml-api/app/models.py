@@ -4,6 +4,8 @@ import pickle
 from pathlib import Path
 from typing import Any, Dict
 
+import joblib
+
 MODEL_ROOT = Path(os.getenv("MODEL_ROOT", "/app/models"))
 
 
@@ -11,8 +13,12 @@ def _load_model(model_name: str) -> Any:
     model_path = MODEL_ROOT / f"{model_name}.pkl"
     if not model_path.exists():
         raise FileNotFoundError(f"Model file not found: {model_path}")
-    with model_path.open("rb") as handle:
-        return pickle.load(handle)
+
+    try:
+        with model_path.open("rb") as handle:
+            return pickle.load(handle)
+    except (pickle.PickleError, EOFError, AttributeError, ImportError, IndexError, ValueError):
+        return joblib.load(model_path)
 
 
 def get_model_registry() -> Dict[str, Any]:

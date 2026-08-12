@@ -50,7 +50,7 @@ def list_models() -> Dict[str, List[str]]:
 
 @router.post("/marito-or-not")
 def predict_marito_or_not(payload: PredictionRequest) -> Dict[str, Any]:
-    model = get_model("marito_or_not")
+    model = get_model("marito-or-not")
     arr = _prepare_array(payload)
 
     prediction = model.predict(arr)
