@@ -2,24 +2,45 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Marito Or Not
 
-To train the model in Docker:
+### Train locally
 
-1. Put training images in `data/marito-or-not/marito` and `data/marito-or-not/not-marito`.
-2. Run the trainer compose file:
+Model training runs locally rather than in Docker to avoid container memory limits. Use Python 3.10 so the exported FastAI model is compatible with the API container.
+
+Initialize Conda and create the training environment:
 
 ```bash
-docker compose -f ml-train/docker-compose.yml up --build
+sudo /opt/homebrew/bin/conda init zsh
+conda create --name deeplearning-notes python=3.10
+conda activate deeplearning-notes
 ```
 
-The model export is written to `ml-api/models/marito-or-not.pkl`.
+Install the training dependencies:
 
-To run the app after training:
+```bash
+conda install -c ipykernel --update-deps --force-reinstall
+conda install -c pytorch pytorch torchvision torchaudio -y
+conda install -c fastchan fastai -y
+pip install -U duckduckgo-search
+```
+
+Confirm that the active environment uses Python 3.10, place training images in `data/marito-or-not/marito` and `data/marito-or-not/not-marito`, then train the model:
+
+```bash
+python --version
+# Expected: Python 3.10.x
+
+python ml-train/marito-or-not.py
+```
+
+The export is written to `ml-api/models/marito-or-not.pkl`. When finished, leave the environment with `conda deactivate`.
+
+### Run the application
 
 ```bash
 docker compose up --build
 ```
 
-The API container loads models from `ml-api/models`.
+The deployment publishes only port `3000` for the web application. The ML API has no host port mapping and is reachable only by the web container at `http://ml-api:8000` on the internal Compose network.
 
 ## Getting Started
 

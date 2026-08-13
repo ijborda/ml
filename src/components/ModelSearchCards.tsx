@@ -44,9 +44,8 @@ export function ModelSearchCards() {
             style={{
               textDecoration: "none",
               display: "grid",
-              alignContent: "space-between",
+              gap: 12,
               width: "100%",
-              aspectRatio: "4 / 5",
               padding: 10,
               background: "#f5f5f5",
               border: "1px solid #d4d4d4",

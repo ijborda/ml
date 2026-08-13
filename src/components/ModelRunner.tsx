@@ -33,6 +33,17 @@ function getPredictionLabel(prediction?: number | number[]) {
   return "Prediction";
 }
 
+function getFriendlyLabel(label?: string) {
+  if (!label) return undefined;
+
+  return label
+    .trim()
+    .split(/[-_\s]+/)
+    .filter(Boolean)
+    .map((word) => `${word[0].toUpperCase()}${word.slice(1).toLowerCase()}`)
+    .join(" ");
+}
+
 export function ModelRunner({ model }: { model: ModelDefinition }) {
   const [image, setImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -40,31 +51,32 @@ export function ModelRunner({ model }: { model: ModelDefinition }) {
   const [result, setResult] = useState<PredictionResult | null>(null);
 
   useEffect(() => {
-    if (!image) {
-      setPreview(null);
-      return;
-    }
+    return () => {
+      if (preview) URL.revokeObjectURL(preview);
+    };
+  }, [preview]);
 
-    const objectUrl = URL.createObjectURL(image);
-    setPreview(objectUrl);
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedImage = event.target.files?.[0] ?? null;
 
-    return () => URL.revokeObjectURL(objectUrl);
-  }, [image]);
+    setImage(selectedImage);
+    setPreview(selectedImage ? URL.createObjectURL(selectedImage) : null);
+  };
 
   const predictionLabel = useMemo(() => {
     if (!result) return "Waiting for inference";
     if (result.error) return "Error";
 
-    return result.label ?? getPredictionLabel(result.prediction);
+    return getFriendlyLabel(result.label) ?? getPredictionLabel(result.prediction);
   }, [result]);
 
   const probabilityText = useMemo(() => {
     if (!result || !result.probability) return "-";
-    const probability = Array.isArray(result.probability) ? result.probability[0] : result.probability;
-    if (Array.isArray(probability)) {
-      return probability.map((value) => Number(value).toFixed(3)).join(" | ");
-    }
-    return Number(probability).toFixed(3);
+    const probabilities = Array.isArray(result.probability[0]) ? result.probability[0] : result.probability;
+    const prediction = getPredictionValue(result.prediction);
+    const probability = prediction === undefined ? undefined : probabilities[prediction];
+
+    return typeof probability === "number" ? `${(probability * 100).toFixed(2)}%` : "-";
   }, [result]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -96,7 +108,6 @@ export function ModelRunner({ model }: { model: ModelDefinition }) {
 
       setResult({
         ...payload,
-        label: getPredictionLabel(payload.prediction),
       });
     } catch (error) {
       setResult({
@@ -108,7 +119,7 @@ export function ModelRunner({ model }: { model: ModelDefinition }) {
   };
 
   return (
-    <div style={{ display: "grid", gap: 20, gridTemplateColumns: "1.1fr 0.9fr" }}>
+    <div style={{ display: "grid", gap: 20, gridTemplateColumns: "1.1fr 0.9fr", alignItems: "start" }}>
       <form onSubmit={handleSubmit} style={{ display: "grid", gap: 16, background: "#f5f5f5", border: "1px solid #d4d4d4", borderRadius: 12, padding: 18 }}>
         <label htmlFor="image-upload" style={{ color: "#111111", fontWeight: 600 }}>
           Upload image
@@ -117,7 +128,7 @@ export function ModelRunner({ model }: { model: ModelDefinition }) {
           id="image-upload"
           type="file"
           accept="image/*"
-          onChange={(event) => setImage(event.target.files?.[0] ?? null)}
+          onChange={handleImageChange}
           style={{ color: "#111111" }}
         />
 
@@ -144,7 +155,7 @@ export function ModelRunner({ model }: { model: ModelDefinition }) {
         </button>
       </form>
 
-      <div style={{ background: "#f5f5f5", border: "1px solid #d4d4d4", borderRadius: 12, padding: 18, display: "grid", gap: 16, alignContent: "start" }}>
+      <div style={{ background: "#f5f5f5", border: "1px solid #d4d4d4", borderRadius: 12, padding: 18, display: "grid", gap: 16, alignContent: "start", alignSelf: "start" }}>
         <div>
           <p style={{ margin: 0, color: "#666666", textTransform: "uppercase", letterSpacing: "0.08em", fontSize: 12 }}>
             Result

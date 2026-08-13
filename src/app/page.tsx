@@ -16,7 +16,7 @@ export default function Home() {
           <p style={{ margin: 0, fontSize: 12, letterSpacing: "0.12em", textTransform: "uppercase", color: "#666666" }}>
             Models
           </p>
-          <h1 style={{ margin: 0, fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 700 }}>ML Library</h1>
+          <h1 style={{ margin: 0, fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 700 }}>Machine Learning Projects</h1>
         </header>
 
         <ModelSearchCards />
