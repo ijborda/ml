@@ -38,8 +38,6 @@ services:
     container_name: ml-platform-api
     environment:
       MODEL_ROOT: /app/models
-    volumes:
-      - ./ml-api/models:/app/models
 
 networks:
   traefik_net:
