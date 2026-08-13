@@ -6,10 +6,10 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: ml-platform-web
-    ports:
-      - "3000:3000"
+    restart: unless-stopped
     labels:
       - "traefik.enable=true"
+      - "traefik.docker.network=traefik_net"
       - "traefik.http.routers.ml-imarijoyborda-secure.rule=Host(`ml.imarijoyborda.com`)"
       - "traefik.http.routers.ml-imarijoyborda-secure.entrypoints=websecure"
       - "traefik.http.routers.ml-imarijoyborda-secure.tls=true"
@@ -27,6 +27,9 @@ services:
       API_LIMIT_MAX_REQUESTS: 10
     depends_on:
       - ml-api
+    networks:
+      - traefik_net
+      - default
 
   ml-api:
     build:
@@ -37,3 +40,7 @@ services:
       MODEL_ROOT: /app/models
     volumes:
       - ./ml-api/models:/app/models
+
+networks:
+  traefik_net:
+    external: true
