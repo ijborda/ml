@@ -6,6 +6,7 @@ from typing import Any, Dict
 from fastai.learner import load_learner
 
 MODEL_ROOT = Path(os.getenv("MODEL_ROOT", "/app/models"))
+_MODEL_CACHE: Dict[str, Any] = {}
 
 
 def _load_model(model_name: str) -> Any:
@@ -17,13 +18,12 @@ def _load_model(model_name: str) -> Any:
 
 
 def get_model_registry() -> Dict[str, Any]:
-    registry: Dict[str, Any] = {}
-
     for file_path in sorted(MODEL_ROOT.glob("*.pkl")):
         model_name = file_path.stem
-        registry[model_name] = _load_model(model_name)
+        if model_name not in _MODEL_CACHE:
+            _MODEL_CACHE[model_name] = _load_model(model_name)
 
-    return registry
+    return _MODEL_CACHE.copy()
 
 
 def get_model(model_name: str) -> Any:
