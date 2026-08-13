@@ -23,6 +23,27 @@ conda install -c fastchan fastai -y
 pip install -U duckduckgo-search
 ```
 
+### Model environment compatibility
+
+FastAI exports serialize parts of the learner and its transform pipeline. The training environment that creates `marito-or-not.pkl` must use the same Python and ML package versions as the API container that loads it. A mismatch can cause incorrect or nondeterministic inference behavior.
+
+The current compatible versions are:
+
+```text
+Python: 3.10
+FastAI: 2.8.7
+PyTorch: 2.5.1
+Torchvision: 0.20.1
+```
+
+Check the local training environment before exporting a model:
+
+```bash
+python -c "import fastai, torch, torchvision; print({'fastai': fastai.__version__, 'torch': torch.__version__, 'torchvision': torchvision.__version__})"
+```
+
+The API versions are pinned in `ml-api/requirements.txt`; update the API dependencies and rebuild the container whenever the training environment changes.
+
 Confirm that the active environment uses Python 3.10, place training images in `data/marito-or-not/marito` and `data/marito-or-not/not-marito`, then train the model:
 
 ```bash

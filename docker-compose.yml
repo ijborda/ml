@@ -21,6 +21,8 @@ services:
       context: ./ml-api
       dockerfile: Dockerfile
     container_name: ml-platform-api
+    ports:
+      - "8000:8000"
     environment:
       MODEL_ROOT: /app/models
     volumes:
