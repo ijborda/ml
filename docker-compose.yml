@@ -8,6 +8,18 @@ services:
     container_name: ml-platform-web
     ports:
       - "3000:3000"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ml-imarijoyborda-secure.rule=Host(`ml.imarijoyborda.com`)"
+      - "traefik.http.routers.ml-imarijoyborda-secure.entrypoints=websecure"
+      - "traefik.http.routers.ml-imarijoyborda-secure.tls=true"
+      - "traefik.http.routers.ml-imarijoyborda-secure.tls.certresolver=myresolver"
+      - "traefik.http.services.ml-imarijoyborda-secure.loadbalancer.server.port=3000"
+      # HTTP to HTTPS redirection
+      - "traefik.http.routers.ml-imarijoyborda.rule=Host(`ml.imarijoyborda.com`)"
+      - "traefik.http.routers.ml-imarijoyborda.entrypoints=web"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.ml-imarijoyborda.middlewares=redirect-to-https"
     environment:
       NODE_ENV: production
       ML_API_URL: http://ml-api:8000
@@ -21,8 +33,6 @@ services:
       context: ./ml-api
       dockerfile: Dockerfile
     container_name: ml-platform-api
-    ports:
-      - "8000:8000"
     environment:
       MODEL_ROOT: /app/models
     volumes:
